@@ -1,0 +1,10 @@
+ {
+    "firstName": "John",
+    "lastName": "Doe",
+     "country": "India",
+     "state": "Maharashtra",
+    "addressLineOne": "15th Eastland Ave",
+    "city": "Joliet",
+    "postalCode": "411001",
+    "email": "johndoe12345@gmail.com"
+  }
