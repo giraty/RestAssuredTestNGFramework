@@ -7,7 +7,7 @@ import org.selenium.pom.base.BasePage;
 
 public class StorePage extends BasePage {
     private final By searchFld = By.id("woocommerce-product-search-field-0");
-    private final By searchBtn = By.cssSelector("button[value='Search']");
+    private final By searchBtn = By.cssSelector(".woocommerce-product-search > button:nth-child(3)");
     private final By title = By.cssSelector(".woocommerce-products-header__title.page-title");
     //private final By addToCartBtn = (By.cssSelector("a[aria-label='Add “Blue Shoes” to your cart']"); old way, not good untuk dynamic UI
     private final By viewCardLink = By.cssSelector("a[title='View cart']");
@@ -26,12 +26,15 @@ public class StorePage extends BasePage {
         return wait.until(ExpectedConditions.urlContains("/store"));
     }*/
 
-    public StorePage search(String txt){
+    public StorePage search(String txt) throws InterruptedException {
         enterTextInSearchFld(txt).clickSearchBtn();
         return this;
     }
-    private StorePage clickSearchBtn(){
-        wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+    private StorePage clickSearchBtn() throws InterruptedException {
+        //wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+        Thread.sleep(1000);
+        driver.findElement(searchBtn).click();
+        //work-around for Firefox
         return this;
     }
     public String getTitle(){

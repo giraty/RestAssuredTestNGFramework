@@ -11,9 +11,11 @@ import java.util.Locale;
 
 public class DriverManager {
 
-    public WebDriver initializeDriver(){
+    public WebDriver initializeDriver(String browser){
         WebDriver driver;
-        String browser = System.getProperty("browser");
+
+
+        // jika pagai testng.xml, hapus template jvm
         switch (DriverType.valueOf(browser)) {
             case CHROME -> {
                 WebDriverManager.chromedriver().cachePath("Drivers").setup();

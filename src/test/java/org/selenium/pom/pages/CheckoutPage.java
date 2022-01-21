@@ -1,6 +1,7 @@
 package org.selenium.pom.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +11,7 @@ import org.selenium.pom.base.BasePage;
 import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.objects.User;
 
+import java.rmi.server.ExportException;
 import java.time.Duration;
 import java.util.List;
 
@@ -29,7 +31,9 @@ public class CheckoutPage extends BasePage {
         private final By overlay = By.cssSelector("blockUI.blockOverlay");
 
         private final By countryDropDown = By.id("billing_country");
+        private final By alternateCountryDropDown = By.id("select2-billing_country-container");
         private final By stateDropDown = By.id("billing_state");
+        private final By alternateStateDropDown = By.id("select2-billing_state-container");
 
         private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
 
@@ -52,14 +56,29 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage selectCountry(String countryName){
-        Select select = new Select(driver.findElement(countryDropDown));
-        select.selectByVisibleText(countryName);
+        //Select select = new Select(driver.findElement(countryDropDown));
+        //select.selectByVisibleText(countryName);
+        //alternate handling untuk Firefox karena bug
+        wait.until(ExpectedConditions.elementToBeClickable(alternateCountryDropDown)).click();
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[text()='" + countryName + "']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+        e.click();
+
         return this;
     }
-
+        // Now not working in both Chrome and Firefox. Maybe revert back to cut cupport for Firefox or try harder.
+        // or maybe, tell Firefox to fix the bug that's been there for 1000 years
     public CheckoutPage selectState(String stateName){
-        Select select = new Select(driver.findElement(stateDropDown));
-        select.selectByVisibleText(stateName);
+/*        Select select = new Select(driver.findElement(stateDropDown));
+        select.selectByVisibleText(stateName);*/
+        // alternate handling untuk Firefox karena bug.
+        wait.until(ExpectedConditions.elementToBeClickable(alternateStateDropDown)).click();
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[text()='" + stateName + "']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", e);
+        e.click();
+
         return this;
     }
 
