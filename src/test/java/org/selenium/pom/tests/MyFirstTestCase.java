@@ -7,6 +7,7 @@ import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.objects.Product;
 import org.selenium.pom.objects.User;
 import org.selenium.pom.pages.*;
+import org.selenium.pom.utils.ConfigLoader;
 import org.selenium.pom.utils.JacksonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,6 +24,7 @@ public class MyFirstTestCase extends BaseTest {
         String searchFor = "Blue";
         BillingAddress billingAddress = JacksonUtils.deserializeJson("myBillingAddress.json", BillingAddress.class);
         Product product = new Product(1215);
+        //User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
 
         StorePage storePage = new HomePage(getDriver())
                 .load()
@@ -56,6 +58,7 @@ public class MyFirstTestCase extends BaseTest {
         String searchFor = "Blue";
         BillingAddress billingAddress = JacksonUtils.deserializeJson("myBillingAddress.json", BillingAddress.class);
         Product product = new Product(1215);
+        User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
 
         StorePage storePage = new HomePage(getDriver())
                 .load()
@@ -74,7 +77,7 @@ public class MyFirstTestCase extends BaseTest {
 
         Assert.assertEquals(cartPage.getProductName(), product.getName());
 
-        User user = JacksonUtils.deserializeJson("user.json", User.class);
+        //User user = JacksonUtils.deserializeJson("user.json", User.class);
         CheckoutPage checkoutPage = cartPage.checkout()
                 .showLogin()
                 .setLoginDetail(user)

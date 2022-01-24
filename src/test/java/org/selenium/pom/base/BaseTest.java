@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.selenium.pom.factory.DriverManager;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public class BaseTest {
@@ -18,11 +19,16 @@ public class BaseTest {
         return this.driver.get();
     }
 
-    @Parameters("browser")
+    //@Parameters("browser")
+    //lagi di comment krn sedang tidak pakai TestNG, direct run dari IDE
     @BeforeMethod
-    public void startDriver(String browser){
-        browser = System.getProperty("browser", browser); // ini untuk pakai dengan JVM
+    public void startDriver(@Optional String browser){
+        //browser = System.getProperty("browser", browser); // ini untuk pakai dengan JVM
         //driver = new DriverManager().initializeDriver(browser); hasil JUnit gagal
+        if(browser == null){
+            browser = "CHROME";
+        }
+
         setDriver(new DriverManager().initializeDriver(browser));
         System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER= " + getDriver());
     }

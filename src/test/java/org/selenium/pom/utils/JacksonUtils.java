@@ -13,6 +13,7 @@ public class JacksonUtils {
     public static <T> T deserializeJson(String fileName, Class<T> T) throws IOException {
         InputStream is = JacksonUtils.class.getClassLoader().getResourceAsStream(fileName);//dir automatic search
         ObjectMapper objectMapper = new ObjectMapper();
+        //ConfigLoader configLoader = new ConfigLoader();
         return objectMapper.readValue(is, T);
     }
 
