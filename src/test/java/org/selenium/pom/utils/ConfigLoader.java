@@ -1,5 +1,8 @@
 package org.selenium.pom.utils;
 
+import com.github.dockerjava.core.dockerfile.DockerfileStatement;
+import org.selenium.pom.constants.EnvType;
+
 import java.util.Properties;
 
 public class ConfigLoader {
@@ -9,7 +12,13 @@ public class ConfigLoader {
     //constructor private
     // only this class should be able to create it's own instance
     private ConfigLoader(){
-        properties = PropertyUtils.propertyLoader("src/test/resources/config.properties");
+        String env = System.getProperty("env", String.valueOf(EnvType.STAGE));
+        switch (EnvType.valueOf(env)) {
+            case STAGE -> properties = PropertyUtils.propertyLoader("src/test/resources/stg_config.properties");
+            case PRODUCTION -> properties = PropertyUtils.propertyLoader("src/test/resources/prod_config.properties");
+            default -> throw new IllegalStateException("Invalid env type: " + env);
+        }
+
         // directly using the class
     }
 
