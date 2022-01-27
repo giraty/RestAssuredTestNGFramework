@@ -26,6 +26,11 @@ public class StorePage extends BasePage {
         return wait.until(ExpectedConditions.urlContains("/store"));
     }*/
 
+    public StorePage load(){
+        load("/store");
+        return this;
+    }
+
     public StorePage search(String txt) throws InterruptedException {
         enterTextInSearchFld(txt).clickSearchBtn();
         return this;
