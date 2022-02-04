@@ -12,6 +12,7 @@ public class NavigationTest  extends BaseTest {
     public void navigateFromHomeToStoreUsingMainMenu(){
         StorePage storePage = new HomePage(getDriver())
                 .load()
+                .getMyHeader()
                 .navigateToStoreUsingMenu();
         //storePage.isLoaded();
         //Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”"); versi testng

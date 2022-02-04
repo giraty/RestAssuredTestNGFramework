@@ -26,6 +26,7 @@ public class DriverManager {
                 driver = new FirefoxDriver();
             }
             default -> throw new IllegalStateException("Invalid browser name: " + browser);
+
         }
         //
 

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MyFirstTestCase extends BaseTest {
 //    @Test
     //@org.junit.Test
-    @Test
+    //@Test
     public void guestCheckoutUsingDirectBankTransfer() throws IOException, InterruptedException {
 
         String searchFor = "Blue";
@@ -28,16 +28,17 @@ public class MyFirstTestCase extends BaseTest {
 
         StorePage storePage = new HomePage(getDriver())
                 .load()
+                .getMyHeader()
                 .navigateToStoreUsingMenu()
                 .search(searchFor);
         //storePage.isLoaded();
         //Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”"); versi testng
         Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”");
 
-        storePage.addToCart(product.getName());
+        storePage.getProductThumbnail().addToCart(product.getName());
 
 
-        CartPage cartPage = storePage.viewCart();
+        CartPage cartPage = storePage.getProductThumbnail().viewCart();
         //cartPage.isLoaded();
         //Assert.assertEquals(cartPage.getProductName(), product.getName()); versi testng
         Assert.assertEquals(cartPage.getProductName(), product.getName());
@@ -52,7 +53,7 @@ public class MyFirstTestCase extends BaseTest {
     }
 
     //@org.junit.Test
-    @Test
+    //@Test
     public void loginAndCheckoutUsingDirectBankTransfer() throws IOException, InterruptedException {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\Acer\\Documents\\ChromeDriver\\firefoxdriver.exe");
         String searchFor = "Blue";
@@ -62,16 +63,17 @@ public class MyFirstTestCase extends BaseTest {
 
         StorePage storePage = new HomePage(getDriver())
                 .load()
+                .getMyHeader()
                 .navigateToStoreUsingMenu()
                 .search(searchFor);
         //storePage.isLoaded();
         //Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”");
         Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”");
 
-        storePage.addToCart(product.getName());
+        storePage.getProductThumbnail().addToCart(product.getName());
 
 
-        CartPage cartPage = storePage.viewCart();
+        CartPage cartPage = storePage.getProductThumbnail().viewCart();
         //cartPage.isLoaded();
         //Assert.assertEquals(cartPage.getProductName(), product.getName());
 

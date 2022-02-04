@@ -37,9 +37,19 @@ public class CheckoutPage extends BasePage {
 
         private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
 
+        private final By productName = By.cssSelector("td[class='product-name']");
+        private final By loginFailNotice = By.cssSelector("div[class='woocommerce-notices-wrapper'] strong:nth-child(1)");
+
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
+
+    public CheckoutPage load(){
+        load("/checkout/");
+        return this;
+
+    }
+
 
 
     public CheckoutPage enterFirstName(String firstName){
@@ -128,6 +138,12 @@ public class CheckoutPage extends BasePage {
         //return driver.findElement(successNotice).getText();
 
     }
+
+    public String getFailNotice(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginFailNotice)).getText();
+        //return driver.findElement(successNotice).getText();
+
+    }
     public CheckoutPage showLogin(){
         wait.until(ExpectedConditions.elementToBeClickable(loginBtn)).click();
         return this;
@@ -160,6 +176,10 @@ public class CheckoutPage extends BasePage {
             e.click();
         }
         return this;
+    }
+    public String getProductName(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(productName)).getText();
+
     }
 
 

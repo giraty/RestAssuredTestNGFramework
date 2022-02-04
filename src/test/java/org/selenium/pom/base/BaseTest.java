@@ -1,11 +1,16 @@
 package org.selenium.pom.base;
 
+import io.restassured.http.Cookies;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.selenium.pom.factory.DriverManager;
+import org.selenium.pom.utils.CookieUtils;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import java.util.List;
 
 public class BaseTest {
     private ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -19,12 +24,12 @@ public class BaseTest {
         return this.driver.get();
     }
 
-    //@Parameters("browser")
+    @Parameters("browser")
     //lagi di comment krn sedang tidak pakai TestNG, direct run dari IDE
     @BeforeMethod
-    public void startDriver(@Optional String browser){
-        //browser = System.getProperty("browser", browser); // ini untuk pakai dengan JVM
-        //driver = new DriverManager().initializeDriver(browser); hasil JUnit gagal
+    public synchronized void startDriver(@Optional String browser){
+        browser = System.getProperty("browser", browser); // ini untuk pakai dengan JVM
+
         if(browser == null){
             browser = "CHROME";
         }
@@ -35,10 +40,17 @@ public class BaseTest {
 
     @AfterMethod
 
-    public void quitDriver() throws InterruptedException {
+    public synchronized void quitDriver() throws InterruptedException {
         Thread.sleep(100);
         System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER= " + getDriver());
         getDriver().quit();
+    }
+    public void injectCookiesToBrowser(Cookies cookies){
+        List<Cookie> seleniumCookies = new CookieUtils().convertRestAssuredCookiesToSeleniumCookies(cookies);
+        for(Cookie cookie: seleniumCookies){
+            getDriver().manage().addCookie(cookie);
+
+        }
     }
 
 }
