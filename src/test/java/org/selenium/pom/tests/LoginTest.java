@@ -27,13 +27,13 @@ public class LoginTest extends BaseTest {
         cartApi.addToCart(product.getId(), 1);
         //inject cookies
         CheckoutPage checkoutPage = new CheckoutPage(getDriver()).load();
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         injectCookiesToBrowser(cartApi.getCookies());
 
         checkoutPage.load();
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         checkoutPage.showLogin().setLoginDetail(user);
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         Assert.assertTrue(checkoutPage.getProductName().contains(product.getName()));
 
     }
@@ -56,9 +56,9 @@ public class LoginTest extends BaseTest {
         injectCookiesToBrowser(cartApi.getCookies());
 
         checkoutPage.load();
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         checkoutPage.showLogin().setLoginDetail(user);
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         Assert.assertTrue(checkoutPage.getProductName().contains(product.getName()));
         Assert.assertEquals(checkoutPage.getFailNotice(), "Error");
 
