@@ -15,6 +15,7 @@ public class SearchTest extends BaseTest {
                 .load()
                 .search(searchFor);
         Assert.assertEquals(storePage.getTitle(), "Search results: “" + searchFor + "”");
+        System.out.println("Tes tes tes invoke Jenkins");
     }
 
     @Test
