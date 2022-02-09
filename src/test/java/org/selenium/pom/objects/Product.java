@@ -1,4 +1,5 @@
 package org.selenium.pom.objects;
+import io.qameta.allure.Step;
 import org.selenium.pom.utils.JacksonUtils;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;

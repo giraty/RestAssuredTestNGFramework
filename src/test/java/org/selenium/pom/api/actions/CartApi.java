@@ -1,5 +1,7 @@
 package org.selenium.pom.api.actions;
 
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
 import io.restassured.http.Header;
@@ -46,6 +48,7 @@ public class CartApi {
                 .headers(headers)
                 .formParams(formParams)
                 .cookies(cookies)
+                .filter(new AllureRestAssured())
                 .log().all()
                 .when()
                     .post("/?wc-ajax=add_to_cart")
